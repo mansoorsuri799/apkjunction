@@ -1,0 +1,19 @@
+#cloudflare
+# Optional Cloudflare Redirect Rule (Dashboard → Rules → Redirect Rules)
+# This is the strongest permanent layer — works even if WordPress is down.
+#
+# Rule name: AMS public → apkjunction.com.pk
+# If:
+#   Hostname equals ams.apkjunction.com.pk
+#   AND URI Path does not start with /wp-admin
+#   AND URI Path does not start with /wp-json
+#   AND URI Path does not start with /wp-content
+#   AND URI Path does not start with /wp-includes
+#   AND URI Path does not equal /wp-login.php
+# Then:
+#   Dynamic redirect → concat("https://apkjunction.com.pk", http.request.uri.path)
+#   Status code: 301
+#   Preserve query string: On
+#
+# Optional Response Header Rule (same hostname, same path exclusions):
+#   Set static → X-Robots-Tag = noindex, nofollow

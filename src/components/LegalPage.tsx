@@ -1,0 +1,43 @@
+import Link from "next/link";
+import SiteLayout from "@/components/SiteLayout";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { getSiteName } from "@/lib/seo";
+
+interface LegalPageProps {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}
+
+export default function LegalPage({ title, description, children }: LegalPageProps) {
+  return (
+    <SiteLayout>
+      <article className="mx-auto max-w-3xl px-5 py-10 sm:px-6 sm:py-12">
+        <Breadcrumbs
+          items={[
+            { label: getSiteName(), href: "/" },
+            { label: title },
+          ]}
+        />
+        <header className="mb-10 border-b border-border-strong pb-8">
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            {title}
+          </h1>
+          {description && (
+            <p className="mt-3 text-lg leading-relaxed text-body">{description}</p>
+          )}
+        </header>
+        <div className="legal-content space-y-6 leading-relaxed text-body">
+          {children}
+        </div>
+        <p className="mt-12 text-sm text-muted">
+          Last updated: September 2026 ·{" "}
+          <Link href="/contact-us" className="text-accent-bright hover:text-white">
+            Contact us
+          </Link>{" "}
+          with questions.
+        </p>
+      </article>
+    </SiteLayout>
+  );
+}

@@ -1,0 +1,603 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background-top: #10182a;
+  --background: #0b1220;
+  --background-bottom: #070b14;
+  --foreground: #ffffff;
+  --body: #c5cdd8;
+  --surface: #141c2e;
+  --surface-raised: #1c2640;
+  --surface-alt: #10182a;
+  --border: #2a3650;
+  --border-strong: #3a4a6a;
+  --muted: #8b97ad;
+  --muted-dim: #667085;
+  --accent: #f59e0b;
+  --accent-bright: #fbbf24;
+  --accent-dim: #d97706;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-top: var(--background-top);
+  --color-background-bottom: var(--background-bottom);
+  --color-foreground: var(--foreground);
+  --color-body: var(--body);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-alt: var(--surface-alt);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted: var(--muted);
+  --color-muted-dim: var(--muted-dim);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-dim: var(--accent-dim);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--body);
+}
+
+/* Shared panel styles — boxes, cards, tables */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.panel-header {
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-bright);
+}
+
+.btn-secondary {
+  background: var(--surface-raised);
+  color: var(--foreground);
+  border: 1px solid var(--border-strong);
+  font-weight: 600;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+.site-page-bg {
+  background-color: var(--background);
+  background-image: linear-gradient(
+    to bottom,
+    var(--background-top) 0%,
+    var(--background) 45%,
+    var(--background-bottom) 100%
+  );
+}
+
+.site-header-bg {
+  background-color: var(--background-top);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.legal-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.legal-content strong {
+  color: var(--foreground);
+}
+
+.legal-content ul {
+  margin-top: 0.5rem;
+}
+
+/*
+ * WordPress / Kadence content styles
+ * Structure is never changed — only visual presentation.
+ * Headings H1–H6 render exactly as authored in WordPress.
+ */
+.wp-content.entry-content {
+  line-height: 1.75;
+  color: var(--body);
+}
+
+.wp-content.entry-content > * + * {
+  margin-top: 1.25em;
+}
+
+.wp-content.entry-content h1 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+@media (min-width: 640px) {
+  .wp-content.entry-content h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+}
+
+.wp-content.entry-content h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+@media (min-width: 640px) {
+  .wp-content.entry-content h2 {
+    font-size: 1.75rem;
+  }
+}
+
+.wp-content.entry-content h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.wp-content.entry-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+}
+
+.wp-content.entry-content h5,
+.wp-content.entry-content h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--body);
+  margin-top: 1.25em;
+  margin-bottom: 0.35em;
+}
+
+.wp-content.entry-content p {
+  margin-top: 1.1em;
+  margin-bottom: 1.1em;
+}
+
+.wp-content.entry-content a {
+  color: var(--accent-bright);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.wp-content.entry-content a:hover {
+  color: var(--accent-bright);
+}
+
+.wp-content.entry-content strong,
+.wp-content.entry-content b {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.wp-content.entry-content ul,
+.wp-content.entry-content ol {
+  margin-top: 1.1em;
+  margin-bottom: 1.1em;
+  padding-left: 1.625em;
+}
+
+.wp-content.entry-content ul {
+  list-style-type: disc;
+}
+
+.wp-content.entry-content ol {
+  list-style-type: decimal;
+}
+
+.wp-content.entry-content li {
+  margin-top: 0.35em;
+  margin-bottom: 0.35em;
+}
+
+.wp-content.entry-content li > ul,
+.wp-content.entry-content li > ol {
+  margin-top: 0.35em;
+  margin-bottom: 0.35em;
+}
+
+.wp-content.entry-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.wp-content.entry-content figure {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.wp-content.entry-content figcaption {
+  margin-top: 0.75em;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-dim);
+}
+
+.wp-content.entry-content blockquote {
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
+  border-left: 4px solid var(--accent);
+  font-style: italic;
+  color: var(--muted);
+}
+
+.wp-content.entry-content pre {
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: var(--surface);
+  padding: 1em 1.25em;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.wp-content.entry-content code {
+  font-size: 0.875em;
+  background: var(--surface);
+  padding: 0.15em 0.35em;
+  border-radius: 0.25rem;
+}
+
+.wp-content.entry-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.wp-content.entry-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 640px) {
+  .wp-content.entry-content table {
+    display: table;
+    font-size: 0.925rem;
+  }
+}
+
+.wp-content.entry-content th,
+.wp-content.entry-content td {
+  border: 1px solid var(--border-strong);
+  padding: 0.6em 1em;
+  text-align: left;
+  color: var(--body);
+}
+
+.wp-content.entry-content th {
+  background: var(--surface-raised);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.wp-content.entry-content td {
+  background: var(--surface);
+}
+
+.wp-content.entry-content hr {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+.wp-content.entry-content .kb-row-layout-wrap,
+.wp-content.entry-content .wp-block-kadence-column,
+.wp-content.entry-content .wp-block-kadence-rowlayout {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.wp-content.entry-content .wp-block-image {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.wp-content.entry-content .wp-block-kadence-infobox,
+.wp-content.entry-content .wp-block-kadence-advancedbtn {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+/*
+ * Kadence global palette fallbacks.
+ * WP button CSS uses var(--global-paletteN) from the theme. Without these
+ * values headless, backgrounds become invalid and buttons look like plain text.
+ * Palette 14/15 match the orange CTAs used in Kadence on AMS.
+ */
+.wp-content.entry-content {
+  --global-palette1: #2b2b2b;
+  --global-palette2: #54595f;
+  --global-palette3: #f0f0f0;
+  --global-palette4: #ffffff;
+  --global-palette5: #10182a;
+  --global-palette6: #c5cdd8;
+  --global-palette7: #ffffff;
+  --global-palette8: #f5f5f5;
+  --global-palette9: #ffffff;
+  --global-palette10: #d97706;
+  --global-palette11: #f59e0b;
+  --global-palette12: #fbbf24;
+  --global-palette13: #fcd34d;
+  --global-palette14: #f59e0b;
+  --global-palette15: #f59e0b;
+  --global-kb-gap-xs: 0.5rem;
+}
+
+/* Kadence Advanced Button */
+.wp-content.entry-content .wp-block-kadence-advancedbtn.kb-buttons-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.wp-content.entry-content a.kb-button,
+.wp-content.entry-content a.kt-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  max-width: 100%;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none !important;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.28);
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/*
+ * Solid fallback when Kadence inline gradient uses an undefined palette var.
+ * WP/Kadence !important gradients still win when their CSS vars resolve.
+ */
+.wp-content.entry-content a.kb-button.kb-btn-global-fill,
+.wp-content.entry-content a.kt-button.kb-btn-global-fill {
+  color: #ffffff !important;
+  background-color: var(--global-palette14, #f59e0b);
+  background-image: linear-gradient(
+    135deg,
+    var(--global-palette14, #f59e0b) 0%,
+    var(--global-palette14, #f59e0b) 100%
+  );
+}
+
+.wp-content.entry-content a.kb-button:hover,
+.wp-content.entry-content a.kt-button:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(245, 158, 11, 0.36);
+}
+
+/*
+ * Kadence gradient text often sets -webkit-text-fill-color: transparent with
+ * palette vars — kill that so the label stays visible on the filled button.
+ */
+.wp-content.entry-content a.kb-button .kt-btn-inner-text,
+.wp-content.entry-content a.kt-button .kt-btn-inner-text {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.wp-content.entry-content .kb-svg-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+  color: inherit;
+}
+
+.wp-content.entry-content .kb-svg-icon-wrap svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  max-width: 1.25rem;
+  max-height: 1.25rem;
+  display: block;
+  stroke: currentColor;
+}
+
+.wp-content.entry-content a.kb-button.kt-btn-size-small {
+  padding: 0.65rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+.wp-content.entry-content a.kb-button.kt-btn-size-large {
+  padding: 1.05rem 1.75rem;
+  font-size: 1.05rem;
+}
+
+.wp-content.entry-content .alignwide {
+  max-width: 100%;
+}
+
+.wp-content.entry-content .alignfull {
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: 100vw;
+}
+
+.wp-content.entry-content .aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Kadence Accordion / FAQ — headless (no Kadence JS/CSS) */
+.wp-content.entry-content .wp-block-kadence-accordion {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.wp-content.entry-content .kt-accordion-inner-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.wp-content.entry-content .wp-block-kadence-pane,
+.wp-content.entry-content .kt-accordion-pane {
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.wp-content.entry-content .kt-accordion-header-wrap {
+  margin: 0;
+}
+
+.wp-content.entry-content .kt-blocks-accordion-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: none;
+  background: var(--surface-raised);
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.wp-content.entry-content .kt-blocks-accordion-header:hover {
+  background: var(--surface);
+  color: var(--accent-bright);
+}
+
+.wp-content.entry-content .kt-blocks-accordion-title-wrap {
+  flex: 1;
+}
+
+.wp-content.entry-content .kt-blocks-accordion-icon-trigger {
+  position: relative;
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+}
+
+.wp-content.entry-content .kt-blocks-accordion-icon-trigger::before,
+.wp-content.entry-content .kt-blocks-accordion-icon-trigger::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--accent);
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.wp-content.entry-content .kt-blocks-accordion-icon-trigger::before {
+  width: 100%;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.wp-content.entry-content .kt-blocks-accordion-icon-trigger::after {
+  width: 2px;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.wp-content.entry-content .kt-accordion-pane-active .kt-blocks-accordion-icon-trigger::after {
+  opacity: 0;
+}
+
+.wp-content.entry-content .kt-accordion-panel {
+  overflow: hidden;
+}
+
+.wp-content.entry-content .kt-accordion-panel-hidden {
+  display: none;
+}
+
+.wp-content.entry-content .kt-accordion-panel-active {
+  display: block;
+}
+
+.wp-content.entry-content .kt-accordion-panel-inner {
+  padding: 1rem 1.1rem 1.15rem;
+  color: var(--body);
+  border-top: 1px solid var(--border);
+}
+
+.wp-content.entry-content .kt-accordion-panel-inner > *:first-child {
+  margin-top: 0;
+}
+
+.wp-content.entry-content .kt-accordion-panel-inner > *:last-child {
+  margin-bottom: 0;
+}
