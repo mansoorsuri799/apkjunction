@@ -19,7 +19,7 @@ import {
   stripHtml,
 } from "@/lib/wordpress";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -36,6 +36,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === "hello-world") return { robots: { index: false, follow: false } };
 
   try {
     const post = await getPostBySlug(slug);
@@ -48,6 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
+  if (slug === "hello-world") notFound();
 
   let post: Awaited<ReturnType<typeof getPostBySlug>> = null;
 

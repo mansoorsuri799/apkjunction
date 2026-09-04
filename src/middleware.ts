@@ -47,9 +47,21 @@ function isAllowedPath(pathname: string): boolean {
   return ALLOW_PATHS.some((pattern) => pattern.test(pathname));
 }
 
+const REMOVED_PATHS = new Set(["/hello-world"]);
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const ua = request.headers.get("user-agent") ?? "";
+
+  if (REMOVED_PATHS.has(pathname.replace(/\/$/, "") || "/")) {
+    return new NextResponse(null, {
+      status: 404,
+      headers: {
+        "Cache-Control": "no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    });
+  }
 
   if (!isAllowedPath(pathname) && isBlockedUserAgent(ua)) {
     return new NextResponse(null, {

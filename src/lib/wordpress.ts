@@ -12,6 +12,12 @@ export {
 const WP_API_URL = getCmsApiUrl();
 
 const DEFAULT_REVALIDATE = 3600;
+const POST_REVALIDATE = 60;
+const SKIP_SLUGS = new Set(["hello-world"]);
+
+function isPublishedPost(post: WPPost): boolean {
+  return !post.status || post.status === "publish";
+}
 
 async function wpFetch<T>(
   path: string,
@@ -58,19 +64,32 @@ export async function getPosts(
   const searchParams = new URLSearchParams({
     _embed: "1",
     per_page: "10",
+    status: "publish",
     ...Object.fromEntries(
       Object.entries(params).map(([key, value]) => [key, String(value)])
     ),
   });
 
-  return wpFetch<WPPost[]>(`/wp/v2/posts?${searchParams}`);
+  const posts = await wpFetch<WPPost[]>(`/wp/v2/posts?${searchParams}`);
+  return posts.filter(
+    (post) => isPublishedPost(post) && !SKIP_SLUGS.has(post.slug)
+  );
 }
 
 export async function getPostBySlug(slug: string): Promise<WPPost | null> {
+  if (SKIP_SLUGS.has(slug)) {
+    return null;
+  }
+
   const posts = await wpFetch<WPPost[]>(
-    `/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed=1`
+    `/wp/v2/posts?slug=${encodeURIComponent(slug)}&status=publish&_embed=1`,
+    { revalidate: POST_REVALIDATE }
   );
-  return posts[0] ?? null;
+  const post = posts[0];
+  if (!post || !isPublishedPost(post)) {
+    return null;
+  }
+  return post;
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
@@ -81,13 +100,15 @@ export async function getAllPostSlugs(): Promise<string[]> {
   while (hasMore) {
     try {
       const posts = await wpFetch<{ slug: string }[]>(
-        `/wp/v2/posts?per_page=100&page=${page}&_fields=slug`
+        `/wp/v2/posts?per_page=100&page=${page}&status=publish&_fields=slug`
       );
 
       if (posts.length === 0) {
         hasMore = false;
       } else {
-        slugs.push(...posts.map((p) => p.slug));
+        slugs.push(
+          ...posts.map((p) => p.slug).filter((slug) => !SKIP_SLUGS.has(slug))
+        );
         page++;
       }
     } catch {
@@ -113,7 +134,11 @@ export async function getAllPostsWithMedia(): Promise<WPPost[]> {
       if (posts.length === 0) {
         hasMore = false;
       } else {
-        all.push(...posts);
+        all.push(
+          ...posts.filter(
+            (post) => isPublishedPost(post) && !SKIP_SLUGS.has(post.slug)
+          )
+        );
         page++;
         if (posts.length < 100) hasMore = false;
       }

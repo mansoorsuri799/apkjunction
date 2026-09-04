@@ -3,6 +3,7 @@ import type { WPPost } from "@/types/wordpress";
 import {
   BRAND,
   getBrandDescription,
+  getBrandDomain,
   getBrandName,
   getBrandTitle,
   getBrandUrl,
@@ -102,6 +103,10 @@ export function buildSiteMetadata(
 
 export function getSiteName(): string {
   return SITE_NAME;
+}
+
+export function getSiteDomain(): string {
+  return getBrandDomain();
 }
 
 export function getSiteTitle(): string {

@@ -18,8 +18,20 @@ export const BRAND = {
   foundingLocation: "Pakistan",
 } as const;
 
+function looksLikeEmail(value: string | undefined): boolean {
+  return Boolean(value && value.includes("@"));
+}
+
 export function getBrandName(): string {
-  return process.env.NEXT_PUBLIC_SITE_NAME ?? BRAND.name;
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_NAME?.trim();
+  if (!fromEnv || looksLikeEmail(fromEnv)) {
+    return BRAND.name;
+  }
+  return fromEnv;
+}
+
+export function getBrandDomain(): string {
+  return BRAND.domain;
 }
 
 export function getBrandUrl(): string {

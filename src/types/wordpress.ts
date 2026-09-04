@@ -8,6 +8,7 @@ export interface RankMathMeta {
 export interface WPPost {
   id: number;
   slug: string;
+  status?: string;
   date: string;
   modified: string;
   link: string;
