@@ -4,7 +4,7 @@
 #
 # Rule name: AMS public → apkjunction.com.pk
 # If:
-#   Hostname equals ams.apkjunction.com.pk
+#   Hostname equals dilpazeer.apkjunction.com.pk
 #   AND URI Path does not start with /wp-admin
 #   AND URI Path does not start with /wp-json
 #   AND URI Path does not start with /wp-content

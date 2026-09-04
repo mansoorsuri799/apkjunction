@@ -16,7 +16,7 @@ Required variables:
 
 - `NEXT_PUBLIC_SITE_URL` — `https://apkjunction.com.pk`
 - `NEXT_PUBLIC_SITE_NAME` — `APK Junction`
-- `WORDPRESS_API_URL` — `https://ams.apkjunction.com.pk/wp-json`
+- `WORDPRESS_API_URL` — `https://dilpazeer.apkjunction.com.pk/wp-json`
 - `REVALIDATE_SECRET` — shared secret for on-demand cache revalidation
 
 Run the development server:
@@ -45,8 +45,8 @@ Child-theme code alone is easy to lose (theme switch / cache). Use the **must-us
 2. Upload `wordpress/apkjunction-ams-seo-mu-plugin.zip` (or the raw `apkjunction-ams-seo.php`) into that folder
 3. Purge LiteSpeed (and Cloudflare) cache
 4. Confirm:
-   - `curl -sI https://ams.apkjunction.com.pk/any-post/` → **301** to `https://apkjunction.com.pk/...`
-   - `curl -s https://ams.apkjunction.com.pk/robots.txt` → `Disallow: /`
+   - `curl -sI https://dilpazeer.apkjunction.com.pk/any-post/` → **301** to `https://apkjunction.com.pk/...`
+   - `curl -s https://dilpazeer.apkjunction.com.pk/robots.txt` → `Disallow: /`
 
 Optional ironclad layer: Cloudflare redirect rules — see `wordpress/mu-plugins/CLOUDFLARE-REDIRECT.txt`.
 

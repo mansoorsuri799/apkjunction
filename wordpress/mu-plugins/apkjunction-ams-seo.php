@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: APK Junction — AMS SEO Lock
- * Description: Permanent CMS-only lock for ams.apkjunction.com.pk. Redirects public HTML to apkjunction.com.pk, forces noindex, and blocks AMS robots/sitemaps. Survives theme changes (must-use plugin).
+ * Description: Permanent CMS-only lock for dilpazeer.apkjunction.com.pk. Redirects public HTML to apkjunction.com.pk, forces noindex, and blocks AMS robots/sitemaps. Survives theme changes (must-use plugin).
  * Version: 1.0.0
  * Author: APK Junction
  *
@@ -11,15 +11,15 @@
  * 3. In Rank Math → Sitemap Settings → turn OFF "XML Sitemap" (or leave it; this plugin overrides robots.txt)
  * 4. LiteSpeed Cache → Purge All (and Cloudflare purge if used)
  * 5. Verify:
- *      curl -sI https://ams.apkjunction.com.pk/t88-game/
+ *      curl -sI https://dilpazeer.apkjunction.com.pk/t88-game/
  *      # expect: 301 Location: https://apkjunction.com.pk/t88-game/
- *      curl -s https://ams.apkjunction.com.pk/robots.txt
+ *      curl -s https://dilpazeer.apkjunction.com.pk/robots.txt
  *      # expect: Disallow: /
  *
  * Keep working as usual:
- *   - https://ams.apkjunction.com.pk/wp-admin/
- *   - https://ams.apkjunction.com.pk/wp-json/
- *   - https://ams.apkjunction.com.pk/wp-content/uploads/...
+ *   - https://dilpazeer.apkjunction.com.pk/wp-admin/
+ *   - https://dilpazeer.apkjunction.com.pk/wp-json/
+ *   - https://dilpazeer.apkjunction.com.pk/wp-content/uploads/...
  */
 
 if (!defined('ABSPATH')) {

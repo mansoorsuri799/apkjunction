@@ -2,13 +2,13 @@ import type { NextConfig } from "next";
 
 const wordpressUrl =
   process.env.WORDPRESS_API_URL?.replace(/\/$/, "") ||
-  "https://ams.apkjunction.com.pk/wp-json";
-let wordpressHostname = "ams.apkjunction.com.pk";
+  "https://dilpazeer.apkjunction.com.pk/wp-json";
+let wordpressHostname = "dilpazeer.apkjunction.com.pk";
 
 try {
   wordpressHostname = new URL(wordpressUrl).hostname;
 } catch {
-  wordpressHostname = "ams.apkjunction.com.pk";
+  wordpressHostname = "dilpazeer.apkjunction.com.pk";
 }
 
 const nextConfig: NextConfig = {

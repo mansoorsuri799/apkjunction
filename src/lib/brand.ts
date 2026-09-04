@@ -4,9 +4,9 @@ export const BRAND = {
   domain: "apkjunction.com.pk",
   url: "https://apkjunction.com.pk",
   wwwUrl: "https://www.apkjunction.com.pk",
-  cmsHost: "ams.apkjunction.com.pk",
-  cmsOrigin: "https://ams.apkjunction.com.pk",
-  cmsApi: "https://ams.apkjunction.com.pk/wp-json",
+  cmsHost: "dilpazeer.apkjunction.com.pk",
+  cmsOrigin: "https://dilpazeer.apkjunction.com.pk",
+  cmsApi: "https://dilpazeer.apkjunction.com.pk/wp-json",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@apkjunction.com.pk",
   title: "APK Junction | Android APK Guides for Pakistan",
   description:

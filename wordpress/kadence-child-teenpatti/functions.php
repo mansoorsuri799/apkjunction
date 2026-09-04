@@ -144,7 +144,7 @@ add_action('template_redirect', function () {
 });
 
 // ─── 5. Block AMS from Google indexing ──────────────────────────────────────
-// WordPress on ams.apkjunction.com.pk is CMS-only; public SEO lives on apkjunction.com.pk.
+// WordPress on dilpazeer.apkjunction.com.pk is CMS-only; public SEO lives on apkjunction.com.pk.
 
 add_filter('pre_option_blog_public', '__return_zero');
 
