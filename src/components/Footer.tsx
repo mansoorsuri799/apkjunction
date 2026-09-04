@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getSiteDomain, getSiteName } from "@/lib/seo";
+import { getSiteName } from "@/lib/seo";
 
 const footerLinks = {
   guides: [
@@ -37,7 +37,7 @@ export default function Footer() {
                 className="rounded-lg"
                 unoptimized
               />
-              <span className="text-lg font-bold text-white">{getSiteDomain()}</span>
+              <span className="text-lg font-bold text-white">{getSiteName()}</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               Editorial APK guides for Pakistani Android users — install paths,

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import MobileNav from "@/components/MobileNav";
-import { getSiteDomain, getSiteName } from "@/lib/seo";
+import { getSiteName } from "@/lib/seo";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -34,7 +34,7 @@ export default function Header() {
             unoptimized
           />
           <span className="truncate text-base font-bold tracking-tight text-white sm:text-lg md:text-xl">
-            {getSiteDomain()}
+            {getSiteName()}
           </span>
         </Link>
 
