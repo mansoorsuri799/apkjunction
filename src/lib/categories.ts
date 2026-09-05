@@ -31,15 +31,25 @@ const APP_CHILDREN: Array<{ name: string; slug: string }> = [
   { name: "Education", slug: "education" },
   { name: "Finance", slug: "finance" },
   { name: "Shopping", slug: "shopping" },
-  { name: "Casino", slug: "casino" },
 ];
+
+/** Keep Casino under Games and Music under Apps only. */
+const HIDDEN_CHILDREN: Record<string, Set<string>> = {
+  apps: new Set(["casino"]),
+  games: new Set(["music-games", "music"]),
+};
+
+function isHiddenChild(parentSlug: string, wpSlug: string): boolean {
+  const hidden = HIDDEN_CHILDREN[parentSlug];
+  if (!hidden) return false;
+  return hidden.has(wpSlug) || hidden.has(categoryPathSegment(wpSlug, parentSlug));
+}
 
 const GAME_CHILDREN: Array<{ name: string; slug: string }> = [
   { name: "Action", slug: "action" },
   { name: "Racing", slug: "racing" },
   { name: "Simulation", slug: "simulation" },
   { name: "Casual", slug: "casual" },
-  { name: "Music", slug: "music-games" },
   { name: "Casino", slug: "casino-games" },
   { name: "Sports", slug: "sports-games" },
   { name: "Strategy", slug: "strategy" },
@@ -178,7 +188,11 @@ function groupFromWordpress(
   if (!parent) return null;
 
   const children = categories
-    .filter((category) => category.parent === parent.id)
+    .filter(
+      (category) =>
+        category.parent === parent.id &&
+        !isHiddenChild(parentSlug, category.slug)
+    )
     .map((category) =>
       toLink(category.name, category.slug, parentSlug, category.count, category.id)
     );

@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
     return [
       { source: "/category/apps", destination: "/apps", permanent: true },
       { source: "/category/games", destination: "/games", permanent: true },
+      { source: "/apps/casino", destination: "/games/casino", permanent: true },
+      { source: "/category/casino", destination: "/games/casino", permanent: true },
+      { source: "/games/music", destination: "/apps/music", permanent: true },
+      { source: "/category/music-games", destination: "/apps/music", permanent: true },
     ];
   },
   async rewrites() {
