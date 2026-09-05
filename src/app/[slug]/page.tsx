@@ -7,6 +7,7 @@ import AnimatedPostHero from "@/components/AnimatedPostHero";
 import PostRating from "@/components/PostRating";
 import JsonLd from "@/components/JsonLd";
 import FadeIn from "@/components/motion/FadeIn";
+import { buildPostCatalogCrumbs } from "@/lib/categories";
 import { buildPostMetadata, getSiteName } from "@/lib/seo";
 import { buildPostSchemaGraph } from "@/lib/schema/builders";
 import { getPostRating } from "@/lib/rating";
@@ -69,8 +70,7 @@ export default async function PostPage({ params }: PageProps) {
 
   const breadcrumbs = [
     { label: getSiteName(), href: "/" },
-    { label: "Guides", href: "/blog" },
-    { label: postTitle },
+    ...buildPostCatalogCrumbs(categories, slug),
   ];
 
   const schemaGraph = buildPostSchemaGraph(post, slug, categories, breadcrumbs);

@@ -474,6 +474,92 @@ body {
   font-size: 1.05rem;
 }
 
+/*
+ * Core WordPress Buttons block.
+ * Kadence Advanced Button is already styled above. The default Gutenberg
+ * Buttons block outputs .wp-block-buttons / .wp-block-button__link and
+ * theme-palette background classes. Those colors are CSS variables that
+ * do not exist headless, so the “button” becomes an underlined text link.
+ */
+.wp-content.entry-content .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.wp-content.entry-content .wp-block-buttons.is-content-justification-left {
+  justify-content: flex-start;
+}
+
+.wp-content.entry-content .wp-block-buttons.is-content-justification-right {
+  justify-content: flex-end;
+}
+
+.wp-content.entry-content .wp-block-button {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.wp-content.entry-content .wp-block-button.has-custom-width {
+  width: min(20rem, 100%);
+}
+
+.wp-content.entry-content .wp-block-button.wp-block-button__width-25 {
+  width: min(10rem, 100%);
+}
+
+.wp-content.entry-content .wp-block-button.wp-block-button__width-50 {
+  width: min(20rem, 100%);
+}
+
+.wp-content.entry-content .wp-block-button.wp-block-button__width-75 {
+  width: min(28rem, 100%);
+}
+
+.wp-content.entry-content .wp-block-button.wp-block-button__width-100 {
+  width: 100%;
+}
+
+.wp-content.entry-content .wp-block-button__link,
+.wp-content.entry-content a.wp-block-button__link,
+.wp-content.entry-content .wp-block-button .wp-element-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.95rem 1.75rem;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--accent) !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none !important;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.28);
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.wp-content.entry-content .wp-block-button__link:hover,
+.wp-content.entry-content a.wp-block-button__link:hover,
+.wp-content.entry-content .wp-block-button .wp-element-button:hover {
+  background-color: var(--accent-bright) !important;
+  color: #ffffff !important;
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(245, 158, 11, 0.36);
+}
+
 .wp-content.entry-content .alignwide {
   max-width: 100%;
 }

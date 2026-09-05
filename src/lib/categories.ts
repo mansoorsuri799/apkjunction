@@ -233,3 +233,39 @@ export function getAllCategorySlugs(tree: CategoryGroup[] = FALLBACK_CATEGORY_TR
 export function catalogHasSlug(slug: string): boolean {
   return flattenCatalog().some((item) => item.slug === slug);
 }
+
+export function resolvePostCatalogTrail(
+  categories: Array<{ slug: string; name?: string }>
+): { parent?: CategoryGroup; child?: CategoryLink } {
+  let parent: CategoryGroup | undefined;
+  let child: CategoryLink | undefined;
+
+  for (const category of categories) {
+    const match =
+      findCatalogCategory(category.slug) ||
+      (category.name
+        ? findCatalogCategory(category.name.toLowerCase())
+        : null);
+    if (!match) continue;
+    if (match.parent) {
+      return { parent: match.parent, child: match.entry };
+    }
+    if (match.group) {
+      parent = match.group;
+    }
+  }
+
+  return { parent, child };
+}
+
+export function buildPostCatalogCrumbs(
+  categories: Array<{ slug: string; name?: string }>,
+  postSlug: string
+): Array<{ label: string; href?: string }> {
+  const { parent, child } = resolvePostCatalogTrail(categories);
+  const crumbs: Array<{ label: string; href?: string }> = [];
+  if (parent) crumbs.push({ label: parent.name, href: parent.href });
+  if (child) crumbs.push({ label: child.name, href: child.href });
+  crumbs.push({ label: postSlug, href: `/${postSlug}` });
+  return crumbs;
+}
