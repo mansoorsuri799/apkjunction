@@ -8,7 +8,8 @@ import type { WPPost } from "@/types/wordpress";
 interface PostColumnProps {
   title: string;
   description: string;
-  categorySlug: string;
+  categorySlug?: string;
+  href?: string;
   posts: WPPost[];
 }
 
@@ -16,8 +17,11 @@ export default function PostColumn({
   title,
   description,
   categorySlug,
+  href,
   posts,
 }: PostColumnProps) {
+  const viewAllHref = href ?? (categorySlug ? `/apps/${categorySlug}` : "/blog");
+
   return (
     <div>
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
@@ -26,7 +30,7 @@ export default function PostColumn({
           <p className="mt-0.5 text-xs text-muted-dim">{description}</p>
         </div>
         <Link
-          href={`/category/${categorySlug}`}
+          href={viewAllHref}
           className="shrink-0 text-xs font-medium text-accent-bright hover:text-white"
         >
           View all →

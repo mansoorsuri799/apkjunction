@@ -5,7 +5,7 @@ const siteInfo = [
   { label: "Website", value: BRAND.domain, href: "/" },
   { label: "Brand", value: BRAND.name },
   { label: "Platform", value: "Android" },
-  { label: "Focus", value: "APK guides" },
+  { label: "Focus", value: "Apps & Games" },
   { label: "Region", value: BRAND.region },
   { label: "Language", value: BRAND.language },
   { label: "Access", value: "Free to read" },

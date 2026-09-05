@@ -32,7 +32,7 @@ export default function ContactUsPage() {
             <p className="mt-4 text-lg leading-relaxed text-body">
               Use email for a correction, a missing screenshot, or a title you
               think deserves a guide. We read the inbox. We do not recover
-              third-party game accounts.
+              third-party app or game accounts.
             </p>
 
             <div className="mt-10 space-y-6">
@@ -102,6 +102,11 @@ export default function ContactUsPage() {
                 <li>
                   <Link href="/privacy-policy" className="text-accent-bright hover:underline">
                     Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/dmca" className="text-accent-bright hover:underline">
+                    DMCA
                   </Link>
                 </li>
               </ul>

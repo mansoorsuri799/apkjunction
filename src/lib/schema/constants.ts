@@ -6,6 +6,8 @@ export const HOWTO_CATEGORY_SLUGS = ["how-to", "guides", "tutorials", "macros"];
 export const APK_CATEGORY_SLUGS = [
   "apk",
   "downloads",
+  "apps",
+  "games",
   "teen-patti-apk",
   "teen-patti-games",
   "new-earning-games",

@@ -8,9 +8,9 @@ export const BRAND = {
   cmsOrigin: "https://dilpazeer.apkjunction.com.pk",
   cmsApi: "https://dilpazeer.apkjunction.com.pk/wp-json",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@apkjunction.com.pk",
-  title: "APK Junction | Android APK Guides for Pakistan",
+  title: "APK Junction | Android Apps and Games Guides for Pakistan",
   description:
-    "APK Junction is an editorial site for Pakistani Android users. Read install steps, JazzCash and Easypaisa notes, and risk flags before you choose an APK.",
+    "APK Junction publishes editorial APK guides for Pakistani Android users. Browse apps and games — install steps, permissions, and risk flags — before you sideload.",
   locale: "en-PK",
   language: "English",
   region: "Pakistan",

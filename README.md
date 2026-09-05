@@ -1,6 +1,6 @@
 # APK Junction (apkjunction.com.pk)
 
-Next.js frontend for [apkjunction.com.pk](https://apkjunction.com.pk) — a headless WordPress site that publishes original APK install guides, wallet notes, and earning-game reviews for Pakistani Android users.
+Next.js frontend for [apkjunction.com.pk](https://apkjunction.com.pk) — a headless WordPress site that publishes original APK install guides for Android apps and games used in Pakistan.
 
 APK Junction is its own editorial brand. It is not a clone or doorway of another APK directory.
 

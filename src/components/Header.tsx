@@ -3,17 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import CategoryMenu from "@/components/CategoryMenu";
 import MobileNav from "@/components/MobileNav";
+import type { CategoryGroup } from "@/lib/categories";
 import { getSiteName } from "@/lib/seo";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Guides" },
   { href: "/about-us", label: "About" },
   { href: "/contact-us", label: "Contact" },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  categories?: CategoryGroup[];
+}
+
+export default function Header({ categories = [] }: HeaderProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -38,8 +43,18 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-body lg:flex lg:gap-8">
-          {navLinks.map((link) => (
+        <nav className="hidden items-center gap-4 text-sm font-medium text-body lg:flex lg:gap-6">
+          {navLinks.slice(0, 1).map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="transition-colors hover:text-accent-bright"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <CategoryMenu groups={categories} />
+          {navLinks.slice(1).map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -50,7 +65,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <MobileNav />
+        <MobileNav categories={categories} />
       </div>
     </motion.header>
   );

@@ -28,6 +28,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/category/apps", destination: "/apps", permanent: true },
+      { source: "/category/games", destination: "/games", permanent: true },
+    ];
+  },
   async rewrites() {
     return [
       {

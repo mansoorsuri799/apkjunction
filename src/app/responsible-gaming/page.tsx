@@ -4,7 +4,7 @@ import { buildSiteMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildSiteMetadata(
   "Responsible Gaming",
-  "APK Junction responsible play notes: 18+ only, spend limits, and when to stop using real-money Android games.",
+  "APK Junction notes for real-money Android games: 18+ only, spend limits, and when to stop.",
   "/responsible-gaming"
 );
 
@@ -12,21 +12,24 @@ export default function ResponsibleGamingPage() {
   return (
     <LegalPage
       title="Responsible Gaming"
-      description="Stay in control of time and money."
+      description="For titles that take real money. The rest of the catalog is still just information."
     >
       <p>
-        APK Junction only publishes information. Real-money card games and
-        earning apps can cost more than time. Treat every deposit as money you
-        may not see again.
+        APK Junction now covers everyday Android apps and games. This page
+        applies when a guide is about real-money play — casino, card, or
+        earning titles that ask for a deposit. Those apps can cost more than
+        time. Treat every deposit as money you may not see again.
       </p>
       <h2 className="text-xl font-semibold text-foreground">Age line</h2>
       <p>
-        Content here is for people <strong>18 years or older</strong>. If you
-        are younger, leave the Site and do not install the apps we describe.
+        Real-money titles we cover are for people{" "}
+        <strong>18 years or older</strong>. If you are younger, do not install
+        those apps. Tools, social, and other non-wagering guides are still
+        general information — sideload them only if you understand the risk.
       </p>
       <h2 className="text-xl font-semibold text-foreground">Rules we ask you to set first</h2>
       <ul className="list-disc space-y-2 pl-6">
-        <li>Decide a weekly PKR cap before you open the wallet screen</li>
+        <li>Decide a weekly PKR cap before you open a wallet or deposit screen</li>
         <li>Stop when the cap is hit — do not “win it back”</li>
         <li>Count bonuses as marketing, not salary</li>
         <li>Step away if a session starts to crowd out sleep, work, or family</li>

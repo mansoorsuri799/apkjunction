@@ -1,3 +1,8 @@
+import {
+  findCatalogCategory,
+  getAllCategoryHrefs,
+  getCategoryTree,
+} from "@/lib/categories";
 import { getSiteUrl } from "@/lib/seo";
 import {
   getAllPostSlugs,
@@ -85,6 +90,7 @@ export async function buildPagesSitemapEntries() {
     { loc: `${siteUrl}/contact-us`, lastmod: now, changefreq: "monthly", priority: "0.7" },
     { loc: `${siteUrl}/privacy-policy`, lastmod: now, changefreq: "yearly", priority: "0.4" },
     { loc: `${siteUrl}/disclaimer`, lastmod: now, changefreq: "yearly", priority: "0.4" },
+    { loc: `${siteUrl}/dmca`, lastmod: now, changefreq: "yearly", priority: "0.4" },
     {
       loc: `${siteUrl}/responsible-gaming`,
       lastmod: now,
@@ -106,18 +112,29 @@ export async function buildPagesSitemapEntries() {
       priority: "0.8",
     }));
 
-    const categoryRoutes = categories
-      .filter((cat) => cat.slug !== "uncategorized")
-      .map((cat) => ({
-        loc: `${siteUrl}/category/${cat.slug}`,
-        lastmod: now,
-        changefreq: "weekly",
-        priority: "0.6",
-      }));
+    const tree = await getCategoryTree();
+    const hrefs = new Set(getAllCategoryHrefs(tree));
+    for (const cat of categories) {
+      if (cat.slug === "uncategorized") continue;
+      const catalog = findCatalogCategory(cat.slug);
+      if (catalog?.entry.href) hrefs.add(catalog.entry.href);
+    }
+    const categoryRoutes = [...hrefs].map((href) => ({
+      loc: `${siteUrl}${href}`,
+      lastmod: now,
+      changefreq: "weekly" as const,
+      priority: href === "/apps" || href === "/games" ? "0.7" : "0.6",
+    }));
 
     return [...staticRoutes, ...postRoutes, ...categoryRoutes];
   } catch {
-    return staticRoutes;
+    const categoryRoutes = getAllCategoryHrefs().map((href) => ({
+      loc: `${siteUrl}${href}`,
+      lastmod: now,
+      changefreq: "weekly" as const,
+      priority: href === "/apps" || href === "/games" ? "0.7" : "0.6",
+    }));
+    return [...staticRoutes, ...categoryRoutes];
   }
 }
 

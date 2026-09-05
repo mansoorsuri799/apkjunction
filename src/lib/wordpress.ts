@@ -2,6 +2,11 @@ import type { WPCategory, WPPost } from "@/types/wordpress";
 import { BRAND, getCmsApiUrl, getCmsOrigin } from "@/lib/brand";
 import { fixContentUrls as fixContentUrlsWithOrigin } from "@/lib/wordpress-utils";
 
+/** Posts assigned here when WordPress does not yet have the parent tree. */
+export const PINNED_CATEGORY_POSTS: Record<string, string[]> = {
+  "casino-games": ["188-pk-game"],
+};
+
 export {
   cleanExcerpt,
   getFeaturedImage,
@@ -151,16 +156,89 @@ export async function getAllPostsWithMedia(): Promise<WPPost[]> {
 }
 
 export async function getCategories(): Promise<WPCategory[]> {
-  return wpFetch<WPCategory[]>("/wp/v2/categories?per_page=100");
+  return wpFetch<WPCategory[]>(
+    "/wp/v2/categories?per_page=100&hide_empty=false"
+  );
 }
 
 export async function getCategoryBySlug(slug: string): Promise<WPCategory | null> {
   const categories = await wpFetch<WPCategory[]>(
-    `/wp/v2/categories?slug=${encodeURIComponent(slug)}`
+    `/wp/v2/categories?slug=${encodeURIComponent(slug)}&hide_empty=false`
   );
   return categories[0] ?? null;
 }
 
 export async function getPostsByCategory(categoryId: number): Promise<WPPost[]> {
   return getPosts({ categories: categoryId, per_page: 20 });
+}
+
+export async function mergePinnedCategoryPosts(
+  wpSlug: string,
+  posts: WPPost[]
+): Promise<WPPost[]> {
+  const pinnedSlugs = PINNED_CATEGORY_POSTS[wpSlug] ?? [];
+  if (pinnedSlugs.length === 0) return posts;
+
+  const seen = new Set(posts.map((post) => post.slug));
+  const extras = await Promise.all(
+    pinnedSlugs
+      .filter((slug) => !seen.has(slug))
+      .map((slug) => getPostBySlug(slug))
+  );
+
+  return [...extras.filter((post): post is WPPost => post !== null), ...posts];
+}
+
+/** Posts for homepage category rows, keyed by category slug. */
+export async function getCategoryRowPosts(
+  slugs: string[]
+): Promise<Record<string, WPPost[]>> {
+  const empty = Object.fromEntries(slugs.map((slug) => [slug, [] as WPPost[]]));
+
+  try {
+    const [categories, latest] = await Promise.all([
+      getCategories(),
+      getPosts({ per_page: 100 }),
+    ]);
+
+    const bySlug = new Map(categories.map((category) => [category.slug, category]));
+    const grouped: Record<string, WPPost[]> = { ...empty };
+
+    for (const slug of slugs) {
+      const category = bySlug.get(slug);
+      if (!category) continue;
+      grouped[slug] = latest.filter((post) => post.categories.includes(category.id));
+    }
+
+    const needsFullFetch = slugs.filter((slug) => {
+      const category = bySlug.get(slug);
+      return Boolean(category && category.count > grouped[slug].length);
+    });
+
+    if (needsFullFetch.length > 0) {
+      const extras = await Promise.all(
+        needsFullFetch.map(async (slug) => {
+          const category = bySlug.get(slug);
+          if (!category) return [slug, grouped[slug]] as const;
+          try {
+            return [slug, await getPosts({ categories: category.id, per_page: 16 })] as const;
+          } catch {
+            return [slug, grouped[slug]] as const;
+          }
+        })
+      );
+      for (const [slug, posts] of extras) {
+        grouped[slug] = posts;
+      }
+    }
+
+    for (const slug of slugs) {
+      grouped[slug] = await mergePinnedCategoryPosts(slug, grouped[slug] ?? []);
+    }
+
+    return grouped;
+  } catch (error) {
+    console.error("[categories] Row posts failed:", error);
+    return empty;
+  }
 }

@@ -31,12 +31,12 @@ export async function POST(request: NextRequest) {
     }
 
     for (const categorySlug of categories) {
-      revalidatePath(`/category/${categorySlug}`);
+      revalidatePath(`/apps/${categorySlug}`);
+      revalidatePath(`/games/${categorySlug}`);
     }
 
-    // Always refresh known guide category archives.
-    revalidatePath("/category/teen-patti-games");
-    revalidatePath("/category/new-earning-games");
+    revalidatePath("/apps");
+    revalidatePath("/games");
 
     return NextResponse.json({
       revalidated: true,

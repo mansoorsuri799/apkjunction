@@ -5,7 +5,7 @@ import { buildSiteMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildSiteMetadata(
   "Disclaimer",
-  "APK Junction disclaimer: informational guides only, no earnings promise, and third-party APK risk on apkjunction.com.pk.",
+  "APK Junction disclaimer: informational app and game guides only, no earnings promise, and third-party APK risk on apkjunction.com.pk.",
   "/disclaimer"
 );
 
@@ -21,16 +21,17 @@ export default function DisclaimerPage() {
       </p>
       <h2 className="text-xl font-semibold text-foreground">Not advice</h2>
       <p>
-        Guides are not financial, legal, or tax advice. Wallet names, bonus
-        numbers, and KYC rules inside an app can change overnight. Confirm the
-        current terms in the app or with the developer before you deposit.
+        Guides are not financial, legal, or tax advice. Permissions, login
+        rules, wallet names, and in-app prices can change overnight. Confirm
+        the current terms in the app or with the developer before you install
+        or pay.
       </p>
       <h2 className="text-xl font-semibold text-foreground">No income claim</h2>
       <p>
-        APK Junction does not say you will earn PKR from any title we cover.
-        Screenshots of a withdrawal, or a reader story, are not a forecast.
-        Results depend on the operator, your activity, and rules we do not
-        control.
+        APK Junction does not say you will earn PKR from any title we cover,
+        including earning apps or real-money games. Screenshots of a
+        withdrawal, or a reader story, are not a forecast. Results depend on
+        the operator, your activity, and rules we do not control.
       </p>
       <h2 className="text-xl font-semibold text-foreground">Third-party software</h2>
       <p>
@@ -61,6 +62,10 @@ export default function DisclaimerPage() {
         Play limits are on{" "}
         <a href="/responsible-gaming" className="text-accent-bright hover:underline">
           Responsible Gaming
+        </a>
+        . Copyright complaints go to{" "}
+        <a href="/dmca" className="text-accent-bright hover:underline">
+          DMCA
         </a>
         .
       </p>

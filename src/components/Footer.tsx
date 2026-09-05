@@ -1,13 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { CategoryGroup } from "@/lib/categories";
+import { FALLBACK_CATEGORY_TREE } from "@/lib/categories";
 import { getSiteName } from "@/lib/seo";
 
 const footerLinks = {
-  guides: [
-    { href: "/blog", label: "All Guides" },
-    { href: "/category/teen-patti-games", label: "Teen Patti Games" },
-    { href: "/category/new-earning-games", label: "New Earning Games" },
-  ],
   company: [
     { href: "/about-us", label: "About Us" },
     { href: "/who-we-are", label: "Who We Are" },
@@ -16,18 +13,25 @@ const footerLinks = {
   legal: [
     { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/disclaimer", label: "Disclaimer" },
+    { href: "/dmca", label: "DMCA" },
     { href: "/responsible-gaming", label: "Responsible Gaming" },
   ],
 };
 
-export default function Footer() {
+interface FooterProps {
+  categories?: CategoryGroup[];
+}
+
+export default function Footer({
+  categories = FALLBACK_CATEGORY_TREE,
+}: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
     <footer className="mt-auto border-t border-border/80 bg-background/90 text-body">
       <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-14">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <div className="sm:col-span-2 lg:col-span-1">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
             <Link href="/" className="flex items-center gap-2.5">
               <Image
                 src="/favicon/favicon.svg"
@@ -40,25 +44,32 @@ export default function Footer() {
               <span className="text-lg font-bold text-white">{getSiteName()}</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              Editorial APK guides for Pakistani Android users — install paths,
-              wallet notes, and risk flags on apkjunction.com.pk.
+              Editorial APK guides for Android apps and games in Pakistan —
+              install paths, permissions, and risk flags on apkjunction.com.pk.
             </p>
           </div>
 
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted">
-              Guides
-            </p>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {footerLinks.guides.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-accent-bright transition-colors">
-                    {link.label}
+          {categories.map((group) => (
+            <div key={group.slug}>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+                {group.name}
+              </p>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <li>
+                  <Link href={group.href} className="hover:text-accent-bright transition-colors">
+                    All {group.name}
                   </Link>
                 </li>
-              ))}
-            </ul>
-          </div>
+                {group.children.slice(0, 7).map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="hover:text-accent-bright transition-colors">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-muted">
@@ -72,14 +83,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted">
-              Legal
-            </p>
-            <ul className="mt-4 space-y-2.5 text-sm">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-accent-bright transition-colors">
@@ -96,7 +99,8 @@ export default function Footer() {
             © {year} {getSiteName()}. All rights reserved.
           </p>
           <p className="text-xs text-muted-dim">
-            18+ only · Play responsibly · Not affiliated with game developers
+            Sideload at your own risk · 18+ for real-money titles · Not affiliated
+            with app developers
           </p>
         </div>
       </div>

@@ -3,16 +3,21 @@
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
+import type { CategoryGroup } from "@/lib/categories";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Guides" },
   { href: "/about-us", label: "About" },
   { href: "/contact-us", label: "Contact" },
 ];
 
-export default function MobileNav() {
+interface MobileNavProps {
+  categories?: CategoryGroup[];
+}
+
+export default function MobileNav({ categories = [] }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -55,20 +60,15 @@ export default function MobileNav() {
               transition={{ duration: 0.2 }}
             />
             <motion.nav
-              className="site-header-bg fixed left-0 right-0 top-14 z-50 px-5 py-4 shadow-xl sm:top-16"
+              className="site-header-bg fixed bottom-0 left-0 right-0 top-14 z-50 overflow-y-auto px-5 py-4 shadow-xl sm:top-16"
               initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
-              <ul className="space-y-1">
-                {navLinks.map((link, index) => (
-                  <motion.li
-                    key={link.href}
-                    initial={prefersReducedMotion ? false : { opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.25 }}
-                  >
+              <ul className="space-y-1 pb-8">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
@@ -76,8 +76,52 @@ export default function MobileNav() {
                     >
                       {link.label}
                     </Link>
-                  </motion.li>
+                  </li>
                 ))}
+                {categories.map((group) => {
+                  const isOpen = expanded === group.slug;
+                  return (
+                    <li key={group.slug}>
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        onClick={() =>
+                          setExpanded((current) =>
+                            current === group.slug ? null : group.slug
+                          )
+                        }
+                        className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-left text-base font-medium text-body transition hover:bg-surface hover:text-accent-bright"
+                      >
+                        {group.name}
+                        <span aria-hidden="true">{isOpen ? "−" : "+"}</span>
+                      </button>
+                      {isOpen && (
+                        <ul className="mb-2 ml-3 grid grid-cols-2 gap-1 border-l border-border pl-3">
+                          <li className="col-span-2">
+                            <Link
+                              href={group.href}
+                              onClick={() => setOpen(false)}
+                              className="block rounded-lg px-2 py-2 text-sm font-semibold text-accent"
+                            >
+                              All {group.name}
+                            </Link>
+                          </li>
+                          {group.children.map((child) => (
+                            <li key={child.slug}>
+                              <Link
+                                href={child.href}
+                                onClick={() => setOpen(false)}
+                                className="block rounded-lg px-2 py-2 text-sm text-body hover:text-accent-bright"
+                              >
+                                {child.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </motion.nav>
           </>

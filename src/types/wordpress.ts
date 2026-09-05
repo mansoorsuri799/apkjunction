@@ -41,6 +41,7 @@ export interface WPCategory {
   slug: string;
   description: string;
   count: number;
+  parent?: number;
 }
 
 export interface WPTag {

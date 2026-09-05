@@ -49,7 +49,7 @@ function isAllowedPath(pathname: string): boolean {
 
 const REMOVED_PATHS = new Set(["/hello-world"]);
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const ua = request.headers.get("user-agent") ?? "";
 

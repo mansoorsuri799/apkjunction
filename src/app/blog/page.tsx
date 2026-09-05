@@ -15,7 +15,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = buildSiteMetadata(
   "APK Guides for Pakistan",
-  "Browse APK Junction install paths, earning-game notes, and Teen Patti guides written for Android users in Pakistan.",
+  "Browse APK Junction guides for Android apps and games — install paths written for readers in Pakistan.",
   "/blog"
 );
 
@@ -41,7 +41,7 @@ export default async function BlogPage() {
       buildCollectionPageSchema(
         pageUrl,
         "APK Guides for Pakistan",
-        "Browse APK Junction install paths, earning-game notes, and Teen Patti guides written for Android users in Pakistan.",
+        "Browse APK Junction guides for Android apps and games — install paths written for readers in Pakistan.",
         posts.map((post) => `${getSiteUrl().replace(/\/$/, "")}/${post.slug}`)
       ),
     ],
@@ -54,8 +54,8 @@ export default async function BlogPage() {
         <FadeIn>
           <h1 className="text-3xl font-bold tracking-tight text-white">Guide library</h1>
           <p className="mt-2 text-body">
-            Install paths and payout notes for Android APKs that Pakistani
-            readers are actually searching for.
+            Install paths for Android apps and games that Pakistani readers are
+            actually searching for.
           </p>
         </FadeIn>
 
