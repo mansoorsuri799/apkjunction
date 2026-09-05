@@ -8,7 +8,7 @@ import {
   getChildPathSlugs,
 } from "@/lib/categories";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;

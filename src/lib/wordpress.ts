@@ -16,7 +16,7 @@ export {
 
 const WP_API_URL = getCmsApiUrl();
 
-const DEFAULT_REVALIDATE = 3600;
+const DEFAULT_REVALIDATE = 60;
 const POST_REVALIDATE = 60;
 const SKIP_SLUGS = new Set(["hello-world"]);
 
@@ -64,7 +64,8 @@ export function fixContentUrls(html: string): string {
 }
 
 export async function getPosts(
-  params: Record<string, string | number> = {}
+  params: Record<string, string | number> = {},
+  options?: { revalidate?: number | false }
 ): Promise<WPPost[]> {
   const searchParams = new URLSearchParams({
     _embed: "1",
@@ -75,7 +76,7 @@ export async function getPosts(
     ),
   });
 
-  const posts = await wpFetch<WPPost[]>(`/wp/v2/posts?${searchParams}`);
+  const posts = await wpFetch<WPPost[]>(`/wp/v2/posts?${searchParams}`, options);
   return posts.filter(
     (post) => isPublishedPost(post) && !SKIP_SLUGS.has(post.slug)
   );
@@ -169,7 +170,7 @@ export async function getCategoryBySlug(slug: string): Promise<WPCategory | null
 }
 
 export async function getPostsByCategory(categoryId: number): Promise<WPPost[]> {
-  return getPosts({ categories: categoryId, per_page: 20 });
+  return getPosts({ categories: categoryId, per_page: 20 }, { revalidate: POST_REVALIDATE });
 }
 
 export async function mergePinnedCategoryPosts(

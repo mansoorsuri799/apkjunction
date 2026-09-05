@@ -8,7 +8,7 @@ import { BRAND } from "@/lib/brand";
 import { getCategoryTree } from "@/lib/categories";
 import { getCategoryRowPosts } from "@/lib/wordpress";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 const features = [
   {
